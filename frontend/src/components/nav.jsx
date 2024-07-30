@@ -3,14 +3,15 @@ import React from "react";
 const Nav = () => {
   return (
     <nav class="container flex items-center justify-around pt-4 pb-3 sticky top-0 z-50">
-      <div
-        class="cursor-pointer rounded-full p-4 transition duration-300 lg:py-3.5 lg:px-6 bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900"
-        style={{ transform: "none" }}
-      >
+      <div class="cursor-pointer rounded-full transition duration-300 ">
         <a href="/">
-          
+            <img
+                className="cursor-pointer select-none whitespace-nowrap rounded-full px-5 h-6"
+                src="src/image/innovstack-high-resolution-logo-transparent.png"
+                alt="InnovStack Logo"
+            />
         </a>
-      </div>
+    </div>
       <ul
         class="hidden items-center gap-1 rounded-full px-4 lg:flex bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900"
         style={{ transform: "none", transformOrigin: "50% 50% 0px" }}
