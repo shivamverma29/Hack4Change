@@ -1,15 +1,12 @@
 import React from "react";
+import logo from '../image/logo.png'
 
 const Nav = () => {
   return (
     <nav class="container flex items-center justify-around pt-4 pb-3 sticky top-0 z-50">
-      <div class="cursor-pointer rounded-full transition duration-300 ">
+      <div class=" bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur p-2 cursor-pointer rounded-full transition duration-300 ">
         <a href="/">
-            <img
-                className="cursor-pointer select-none whitespace-nowrap rounded-full px-5 h-6"
-                src="src/image/innovstack-high-resolution-logo-transparent.png"
-                alt="InnovStack Logo"
-            />
+          <strong className="text-xl"><span className="text-blue-500">Innov</span>Stack</strong>
         </a>
     </div>
       <ul
