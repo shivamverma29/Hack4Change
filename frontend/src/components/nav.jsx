@@ -4,14 +4,11 @@ import logo from '../image/logo.png'
 const Nav = () => {
   return (
     <nav class="container flex items-center justify-around pt-4 pb-3 sticky top-0 z-50">
-      <div
-        class="cursor-pointer rounded-full p-4 transition duration-300 lg:py-3.5 lg:px-6 bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900"
-        style={{ transform: "none" }}
-      >
+      <div class=" bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur p-2 cursor-pointer rounded-full transition duration-300 ">
         <a href="/">
           <strong className="text-xl"><span className="text-blue-500">Innov</span>Stack</strong>
         </a>
-      </div>
+    </div>
       <ul
         class="hidden items-center gap-1 rounded-full px-4 lg:flex bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900"
         style={{ transform: "none", transformOrigin: "50% 50% 0px" }}
@@ -38,7 +35,7 @@ const Nav = () => {
         </a>
         <a href="/lms">
           <li class="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            Explore
+            LMS
           </li>
         </a>
         <a href="/guidex">

@@ -7,11 +7,13 @@ import Guidex from "./components/guidex";
 import Footer from "./components/footer";
 import VideoUpload from "./components/VideoUpload";
 import Poster from "./components/aiposter";
+import Chatbot from "./components/chatbot";
 import Crowd from "./components/crowd";
 function App() {
   return (
     <>
-      <Nav/>
+      <Nav />
+      <Chatbot />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
