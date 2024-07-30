@@ -10,7 +10,8 @@ const Lms = () => {
     const fetchVideos = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/allMediaUploads"
+          // "http://localhost:5000/api/allMediaUploads"
+          "https://hack4change.onrender.com/api/allMediaUploads"
         );
         setVideos(response.data);
         console.log(videos);
