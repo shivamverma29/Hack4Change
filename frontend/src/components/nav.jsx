@@ -1,4 +1,5 @@
 import React from "react";
+import logo from '../image/logo.png'
 
 const Nav = () => {
   return (
@@ -8,7 +9,7 @@ const Nav = () => {
         style={{ transform: "none" }}
       >
         <a href="/">
-          
+          <strong className="text-xl"><span className="text-blue-500">Innov</span>Stack</strong>
         </a>
       </div>
       <ul
