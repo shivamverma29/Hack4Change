@@ -9,7 +9,7 @@ function Poster() {
 
   const generatePoster = async () => {
     setLoader(true);
-    const response = await fetch("http://localhost:5000/generate-poster", {
+    const response = await fetch("https://hack4change.onrender.com/generate-poster", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
