@@ -15,10 +15,10 @@ import Login from "./components/login";
 import { ContextProvider } from "./components/context/StepContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Businessplan from "./components/businessplan";
 import Legal from "./components/legal/legal";
 import Service from "./components/legal/service";
 import InputForm from "./components/legal/inputForm";
-import Businessplan from "./components/businessplan";
 
 function App() {
   return (
@@ -37,6 +37,7 @@ function App() {
             <Route path="/dashboard" element={<Visuals />} />
             <Route path="/signup" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/business" element={<Businessplan />} />
             <Route path="/legal" element={<Legal />} />
             <Route path="/service/:id" element={<Service />} />
             <Route path="/form/:id" element={<InputForm />} />
@@ -49,5 +50,4 @@ function App() {
     </>
   );
 }
-
 export default App;
