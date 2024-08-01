@@ -1,10 +1,16 @@
 import React from "react";
-// import Chatbot from "./chatbot";
+import Chatbot from "./chatbot";
+import carlos from "../image/carlos-muza-hpjSkU2UYSU-unsplash.jpg";
+import fundrraise from "../image/fundrraise.jpg"
+import aditya from "../image/aditya.jpg"
+import akriti from "../image/akriti.jpg"
+import shivam from "../image/shivam.jpg"
+import akshita from "../image/akshita.jpeg"
 export default function Home() {
   return (
     <>
       <main>
-        {/* <Chatbot /> */}
+        <Chatbot />
         <div
           className="relative pt-16 pb-32 flex content-center items-center justify-center"
           style={{
@@ -219,7 +225,7 @@ export default function Home() {
                 <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg"
-                  src="src\image\carlos-muza-hpjSkU2UYSU-unsplash.jpg"
+                  src={carlos}
                 />
               </div>
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4 mb-20">
@@ -318,7 +324,7 @@ export default function Home() {
                 <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg mt-20"
-                  src="src\image\fundrraise.jpg"
+                  src={fundrraise}
                 />
               </div>
             </div>
@@ -344,7 +350,7 @@ export default function Home() {
                 <div className="px-6">
                   <img
                     alt="Shivam Verma"
-                    src="src/image/shivam.jpg"
+                    src={shivam}
                     className="shadow-lg rounded-full w-32 h-32 object-cover mx-auto"
                     style={{ maxWidth: "120px" }}
                   />
@@ -380,7 +386,7 @@ export default function Home() {
                 <div className="px-6">
                   <img
                     alt="Aditya Srivastava"
-                    src="src/image/aditya.jpg"
+                    src={aditya}
                     className="shadow-lg rounded-full w-32 h-32 object-cover mx-auto"
                     style={{ maxWidth: "120px" }}
                   />
@@ -416,7 +422,7 @@ export default function Home() {
                 <div className="px-6">
                   <img
                     alt="Akriti Rai"
-                    src="src/image/akriti.jpg"
+                    src={akriti}
                     className="shadow-lg rounded-full w-32 h-32 object-cover mx-auto"
                     style={{ maxWidth: "120px" }}
                   />
@@ -452,7 +458,7 @@ export default function Home() {
                 <div className="px-6">
                   <img
                     alt="Akshita Munjal"
-                    src="src/image/akshita.jpeg"
+                    src={akshita}
                     className="shadow-lg rounded-full w-32 h-32 object-cover mx-auto"
                     style={{ maxWidth: "120px" }}
                   />

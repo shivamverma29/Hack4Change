@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/auth';
+// const API_URL = 'http://localhost:5000/auth';
+const API_URL = 'https://hack4change.onrender.com/auth';
 
 export const register = createAsyncThunk('auth/register', async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);

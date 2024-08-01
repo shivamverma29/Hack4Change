@@ -67,6 +67,11 @@ const Nav = () => {
             BusinessPlan
           </li>
         </a>
+        <a href="/legal">
+          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
+            LegalX
+          </li>
+        </a>
       </ul>
       <div className="flex items-center gap-4">
         <div style={{ transform: "none", transformOrigin: "100% 50% 0px" }}>
