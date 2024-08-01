@@ -19,11 +19,13 @@ import Businessplan from "./components/businessplan";
 import Legal from "./components/legal/legal";
 import Service from "./components/legal/service";
 import InputForm from "./components/legal/inputForm";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 
 function App() {
   return (
     <>
       <ContextProvider>
+        <LanguageSwitcher />
         <Nav />
         <Chatbot />
         <BrowserRouter>
