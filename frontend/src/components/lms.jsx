@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-
 const Lms = () => {
   const isLogin = useSelector((state) => state.auth.token);
   const [videos, setVideos] = useState([]);
@@ -60,35 +59,38 @@ const Lms = () => {
           ))}
         </select>
       </div>
-      {isLogin? (
-      <div className="container flex flex-row flex-wrap mb-16">
-        {/* card starts */}
-        {filteredVideos.map((video, index) => (
-          <div className="card bg-base-100 w-96 shadow-xl mt-10 ml-auto mr-auto min-w-96">
-            <figure>
-              <video src={video.url} controls></video>
-            </figure>
+      {isLogin ? (
+        <div className="container flex flex-row flex-wrap mb-16">
+          {/* card starts */}
+          {filteredVideos.map((video, index) => (
+            <div className="card bg-base-100 w-96 shadow-xl mt-10 ml-auto mr-auto min-w-96">
+              <figure>
+                <video src={video.url} controls></video>
+              </figure>
 
-            <div className="card-body">
-              <h2 className="card-title">
-                {video.title}
-                {/* <div className="badge badge-secondary">NEW</div> */}
-              </h2>
-              <p>{video.name}</p>
-              <div className="card-actions justify-end">
-                {video.videoTag.map((tag, index) => (
-                  <div className="badge badge-outline" key={index}>
-                    {tag}
-                  </div>
-                ))}
+              <div className="card-body">
+                <h2 className="card-title">
+                  {video.title}
+                  {/* <div className="badge badge-secondary">NEW</div> */}
+                </h2>
+                <p>{video.name}</p>
+                <div className="card-actions justify-end">
+                  {video.videoTag.map((tag, index) => (
+                    <div className="badge badge-outline" key={index}>
+                      {tag}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-          //card ends
-        ))}
-      </div>):<div className="py-8 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
-                  <p className="text-center text-red-500">Please login to use LMS</p>
-                </div>}
+            //card ends
+          ))}
+        </div>
+      ) : (
+        <div className="py-8 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
+          <p className="text-center text-red-500">Please login to use LMS</p>
+        </div>
+      )}
     </div>
   );
 };
