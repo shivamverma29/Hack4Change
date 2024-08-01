@@ -19,6 +19,7 @@ import Businessplan from "./components/businessplan";
 import Legal from "./components/legal/legal";
 import Service from "./components/legal/service";
 import InputForm from "./components/legal/inputForm";
+
 function App() {
   return (
     <>
@@ -40,12 +41,13 @@ function App() {
             <Route path="/legal" element={<Legal />} />
             <Route path="/service/:id" element={<Service />} />
             <Route path="/form/:id" element={<InputForm />} />
+            <Route path="/business" element={<Businessplan />} />
           </Routes>
           <ToastContainer />
         </BrowserRouter>
         <Footer></Footer>
       </ContextProvider>
-      </>
+    </>
   );
 }
 export default App;

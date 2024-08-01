@@ -56,7 +56,6 @@ function Service() {
       .then((res) => {
         console.log(res);
         setData(res);
-        // console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -74,132 +73,77 @@ function Service() {
   };
 
   return (
-    <div className="outer">
-      <div className="absolute inset-0 overflow-hidden h-full">
-        <video
-          autoPlay
-          loop
-          muted
-          className="h-screen w-screen object-cover object-center fixed top-0 left-0 z-0"
-          style={{ zIndex: -1 }}
-        >
-          <source
-            src="https://res.cloudinary.com/dyxnmjtrg/video/upload/v1694668584/Purple_Blue_Modern_Tech_Business_Conference_Video_d5vf0l.mp4"
-            type="video/mp4"
-          />
-          {/* You can add additional source elements for different video formats (e.g., WebM, Ogg) if needed */}
-          Your browser does not support the video tag.
-        </video>
-      </div>
+    <div className="min-h-screen bg-gray-900 relative">
+      <video
+        autoPlay
+        loop
+        muted
+        className="absolute inset-0 h-full w-full object-cover z-0"
+      >
+        <source
+          src="https://res.cloudinary.com/dyxnmjtrg/video/upload/v1694668584/Purple_Blue_Modern_Tech_Business_Conference_Video_d5vf0l.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen bg-black bg-opacity-50">
+        <h1 className="text-5xl font-bold text-white mb-10">{serviceName}</h1>
 
-      <div className="serve w-full">
-        {/* <div className="right">
-          
-          <h2>Steps: </h2>
-          <br />
-         <ol >
+        <div className="flex justify-center w-full mb-10">
+          <ul className="steps text-white">
+            <li className={`step ${context.step1 ? "step-success" : ""}`}>
+              Select Legal Document
+            </li>
+            <li className={`step ${context.step2 ? "step-success" : ""}`}>
+              Fill Information
+            </li>
+            <li className={`step ${context.step3 ? "step-success" : ""}`}>
+              Edit Document
+            </li>
+            <li className={`step ${context.step4 ? "step-success" : ""}`}>
+              Download Document
+            </li>
+          </ul>
+        </div>
 
-          <li className="bg-blue-500 rounded">Select legal document. </li>
-          <br />
-          <li className="bg-white rounded">Enter the details in form pertaining to your problem. </li>
-          <li>Edit the document as per your requirement.</li>
-          <li>Download legal document. </li>
-         </ol>
-
-
-        </div> */}
-
-        <div className="cards mx-auto">
-          <div className="cards mx-auto">
-            {/* <div style={{ display: 'flex', alignItems: 'center', marginTop: '50px' }}>
-  <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'blue', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '1px' }}>
-    1
-  </div>
-  <div style={{ width: '900px' }}>
-    <Progress completed={50} />
-  </div>
-</div> */}
-
-            <div className="my-7 flex justify-center">
-              <ul className="steps">
-                <li
-                  className={`step ${
-                    context.step1 ? "step-success" : ""
-                  } text-white font-semibold`}
-                >
-                  Select Legal Document
-                </li>
-                <li
-                  className={`step  ${
-                    context.step2 ? "step-success" : ""
-                  } text-white font-semibold`}
-                  style={{ color: "white" }}
-                >
-                  Fill information
-                </li>
-                <li
-                  className={`step  ${
-                    context.step3 ? "step-success" : ""
-                  } text-white font-semibold`}
-                  style={{ color: "white" }}
-                >
-                  Edit document
-                </li>
-                <li
-                  className={`step ${
-                    context.step4 ? "step-success" : ""
-                  } text-white font-semibold`}
-                  style={{ color: "white" }}
-                >
-                  Download document
-                </li>
-              </ul>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ml-72">
+          {data.length > 0 ? (
+            data.map((form) => (
+              <Link
+                to={"/form/" + form.form_id}
+                className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg shadow-lg p-6 text-center hover:bg-opacity-20 transition duration-300"
+                key={form.form_id}
+                onClick={handleClick}
+              >
+                <div className="flex flex-col items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-12 h-12 mb-4 text-white"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                    />
+                  </svg>
+                  <p className="text-2xl font-semibold text-white mb-4">
+                    {form.form_name}
+                  </p>
+                  <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
+                    View Document
+                  </button>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div className="text-4xl text-white font-bold">
+              Contact the Lawyer...
             </div>
-          </div>
-
-          <div className="flex flex-col justify-center items-center ">
-            <h1 className="text-4xl font-bold text-center  text-white mb-7 mt-3 ">
-              {serviceName.length > 0 && serviceName}
-            </h1>
-            {data.length > 0 ? (
-              data.map((form, index) => (
-                <Link
-                  to={"/form/" + form.form_id}
-                  className="card"
-                  key={form.form_id}
-                  onClick={handleClick}
-                >
-                  <div className="flex w-full mx-auto text-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="w-9 h-9"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                      />
-                    </svg>
-                    <p className="text-xl font-semibold mt-1 px-3">
-                      {form.form_name}
-                    </p>
-                  </div>
-
-                  <button>View Document</button>
-                </Link>
-              ))
-            ) : (
-              <div className="flex justify-center w-full items-center">
-                <p className="text-4xl text-white font-bold">
-                  Contact the Lawyer...
-                </p>
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </div>

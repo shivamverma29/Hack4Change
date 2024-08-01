@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../slices/authSlice'; // Import the logout action
-import logo from '../image/logo.png';
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../slices/authSlice"; // Import the logout action
+import logo from "../image/logo.png";
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,11 +20,17 @@ const Nav = () => {
     <nav className="container flex items-center justify-around pt-4 pb-3 sticky top-0 z-50">
       <div className="bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur p-2 cursor-pointer rounded-full transition duration-300">
         <a href="/">
-          <strong className="text-xl"><span className="text-blue-500">Innov</span>Stack</strong>
+          <strong className="text-xl">
+            <span className="text-blue-500">Innov</span>Stack
+          </strong>
         </a>
       </div>
       <ul
-        className={`lg:flex items-center gap-1 rounded-full px-4 ml-[130px] bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900 ${isMenuOpen ? 'flex flex-col lg:flex-row absolute top-16 left-0 w-full lg:w-auto bg-white shadow-lg lg:shadow-none' : 'hidden lg:flex'}`}
+        className={`lg:flex items-center gap-1 rounded-full px-4 ml-[130px] bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900 ${
+          isMenuOpen
+            ? "flex flex-col lg:flex-row absolute top-16 left-0 w-full lg:w-auto bg-white shadow-lg lg:shadow-none"
+            : "hidden lg:flex"
+        }`}
         style={{ transform: "none", transformOrigin: "50% 50% 0px" }}
       >
         <a href="/">
@@ -42,11 +48,11 @@ const Nav = () => {
             AI Poster
           </li>
         </a>
-        <a href="/community">
+        {/* <a href="/community">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             Add Success Stories
           </li>
-        </a>
+        </a> */}
         <a href="/lms">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             LMS
@@ -59,7 +65,7 @@ const Nav = () => {
         </a>
         <a href="/dashboard">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            Dashboard
+            AnalyticsX
           </li>
         </a>
         <a href="/business">

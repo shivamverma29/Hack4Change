@@ -1,11 +1,11 @@
 import React from "react";
 import Chatbot from "./chatbot";
 import carlos from "../image/carlos-muza-hpjSkU2UYSU-unsplash.jpg";
-import fundrraise from "../image/fundrraise.jpg"
-import aditya from "../image/aditya.jpg"
-import akriti from "../image/akriti.jpg"
-import shivam from "../image/shivam.jpg"
-import akshita from "../image/akshita.jpeg"
+import fundrraise from "../image/fundrraise.jpg";
+import aditya from "../image/aditya.jpg";
+import akriti from "../image/akriti.jpg";
+import shivam from "../image/shivam.jpg";
+import akshita from "../image/akshita.jpeg";
 export default function Home() {
   return (
     <>
@@ -152,12 +152,6 @@ export default function Home() {
                   community of your choice today and experience the future of
                   work!
                 </p>
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-                  className="font-bold text-gray-800 mt-8"
-                >
-                  Get Started Today
-                </a>
               </div>
 
               <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">

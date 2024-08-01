@@ -75,7 +75,7 @@ function Legal() {
                     className="cursor-pointer transform transition ease-in-out hover:scale-105 duration-300"
                     key={service.service_id}
                   >
-                    <div className="bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl">
                       <img
                         className="w-full h-48 object-cover object-center"
                         src={service.img_link}
