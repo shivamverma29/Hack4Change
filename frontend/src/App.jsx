@@ -10,6 +10,8 @@ import Poster from "./components/aiposter";
 import Chatbot from "./components/chatbot";
 import Crowd from "./components/crowd";
 import Visuals from "./components/VIsuals";
+import Register from "./components/register";
+import Login from "./components/login";
 function App() {
   return (
     <>
@@ -24,6 +26,8 @@ function App() {
           <Route path="/poster" element={<Poster />} />
           <Route path="/crowd" element={<Crowd />} />
           <Route path="/dashboard" element={<Visuals />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
