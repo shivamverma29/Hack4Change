@@ -14,13 +14,17 @@ function Poster() {
   const generatePoster = async () => {
     setLoader(true);
     // const response = await fetch("http://localhost:5000/gen/generate-poster", {
-    const response = await fetch("https://hack4change.onrender.com/gen/generate-poster", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ companyName, postDescription }),
-    });
+    // const response = await fetch("https://hack4change.onrender.com/gen/generate-poster", {
+    const response = await fetch(
+      "https://hack4-change-one.vercel.app/gen/generate-poster",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ companyName, postDescription }),
+      }
+    );
     const data = await response.json();
     const { generated_image } = data;
 
