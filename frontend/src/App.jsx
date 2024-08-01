@@ -12,6 +12,7 @@ import Crowd from "./components/crowd";
 import Visuals from "./components/VIsuals";
 import Register from "./components/register";
 import Login from "./components/login";
+import Businessplan from "./components/businessplan";
 function App() {
   return (
     <>
@@ -28,6 +29,7 @@ function App() {
           <Route path="/dashboard" element={<Visuals />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/business" element={<Businessplan />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
