@@ -20,8 +20,27 @@ app.use(
 app.use(express.json());
 
 app.use("/api", require("./routes/lmsRoutes.js"));
-app.use("/gen",require("./routes/posterRoutes.js"))
-app.use("/auth",require("./routes/auth.js"))
+app.use("/gen", require("./routes/posterRoutes.js"));
+app.use("/auth", require("./routes/auth.js"));
+
+// const { exec } = require("child_process");
+
+// app.get("/run-python", (req, res) => {
+//   exec("python app.py", (error, stdout, stderr) => {
+//     if (error) {
+//       console.error(`Error executing script: ${error.message}`);
+//       return res.status(500).send(error.message);
+//     }
+
+//     if (stderr) {
+//       console.error(`Script stderr: ${stderr}`);
+//       return res.status(500).send(stderr);
+//     }
+
+//     console.log(`Script stdout: ${stdout}`);
+//     res.send(`Script output: ${stdout}`);
+//   });
+// });
 
 app.listen(5000, async () => {
   console.log("connected to port" + 4000);
