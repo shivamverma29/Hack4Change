@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HashLoader from 'react-spinners/HashLoader';
+import HashLoader from "react-spinners/HashLoader";
 
 function Poster() {
   const [companyName, setCompanyName] = useState("");
@@ -9,7 +9,7 @@ function Poster() {
 
   const generatePoster = async () => {
     setLoader(true);
-    const response = await fetch("https://hack4change.onrender.com/generate-poster", {
+    const response = await fetch("https://localhost:5000/generate-poster", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +18,7 @@ function Poster() {
     });
     const data = await response.json();
     const { generated_image } = data;
-  
+
     setLoader(false);
     setPoster(generated_image);
   };
@@ -89,8 +89,10 @@ function Poster() {
           </div>
           {loader && (
             <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
-            <div className="loader"><HashLoader color="white" /></div>
-          </div>
+              <div className="loader">
+                <HashLoader color="white" />
+              </div>
+            </div>
           )}
           <div className="w-full flex justify-center">
             {poster && (
@@ -117,7 +119,6 @@ function Poster() {
         </div>
       </div>
     </div>
-
   );
 }
 
