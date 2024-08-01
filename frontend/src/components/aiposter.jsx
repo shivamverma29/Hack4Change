@@ -38,7 +38,9 @@ function Poster() {
   }
 
   const fetchCaptions = async (companyName, postDescription) => {
-    const genAI = new GoogleGenerativeAI("AIzaSyCLzLgikraSgNptmvZrMsGx9kWkVKbDo90");
+    const genAI = new GoogleGenerativeAI(
+      "AIzaSyCLzLgikraSgNptmvZrMsGx9kWkVKbDo90"
+    );
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const prompt = `Generate catchy captions for the following company and post: ${companyName} - ${postDescription}. Provide the captions in JSON format with keys 'captions'.`;
     const data = await model.generateContent(prompt);
@@ -112,7 +114,9 @@ function Poster() {
                 </div>
               ) : (
                 <div className="py-8 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
-                  <p className="text-center text-red-500">Please login to generate a poster</p>
+                  <p className="text-center text-red-500">
+                    Please login to generate a poster
+                  </p>
                 </div>
               )}
             </div>
@@ -145,17 +149,21 @@ function Poster() {
           </div>
           {poster && captions.length > 0 && (
             <>
-            <h1 className="flex justify-center text-center mt-7 text-2xl font-bold">Suggested Captions</h1>
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {captions.map((caption, index) => (
-                <div
-                  key={index}
-                  className="p-6 bg-white bg-opacity-60 backdrop-blur-md rounded-lg shadow-lg border border-gray-200"
-                >
-                  <h3 className="text-lg font-semibold text-gray-800">{caption}</h3>
-                </div>
-              ))}
-            </div>
+              <h1 className="flex justify-center text-center mt-7 text-2xl font-bold">
+                Suggested Captions
+              </h1>
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {captions.map((caption, index) => (
+                  <div
+                    key={index}
+                    className="p-6 bg-white bg-opacity-60 backdrop-blur-md rounded-lg shadow-lg border border-gray-200"
+                  >
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      {caption}
+                    </h3>
+                  </div>
+                ))}
+              </div>
             </>
           )}
         </div>

@@ -9,6 +9,7 @@ import VideoUpload from "./components/VideoUpload";
 import Poster from "./components/aiposter";
 import Chatbot from "./components/chatbot";
 import Crowd from "./components/crowd";
+import Visuals from "./components/VIsuals";
 import Register from "./components/register";
 import Login from "./components/login";
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/guidex" element={<Guidex />} />
           <Route path="/poster" element={<Poster />} />
           <Route path="/crowd" element={<Crowd />} />
+          <Route path="/dashboard" element={<Visuals />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
