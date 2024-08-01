@@ -1,8 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+
 
 const Lms = () => {
+  const isLogin = useSelector((state) => state.auth.token);
   const [videos, setVideos] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -10,8 +13,8 @@ const Lms = () => {
     const fetchVideos = async () => {
       try {
         const response = await axios.get(
-          // "http://localhost:5000/api/allMediaUploads"
-          "https://hack4change.onrender.com/api/allMediaUploads"
+          "http://localhost:5000/api/allMediaUploads"
+          // "https://hack4change.onrender.com/api/allMediaUploads"
         );
         setVideos(response.data);
         console.log(videos);
@@ -57,6 +60,7 @@ const Lms = () => {
           ))}
         </select>
       </div>
+      {isLogin? (
       <div className="container flex flex-row flex-wrap mb-16">
         {/* card starts */}
         {filteredVideos.map((video, index) => (
@@ -82,7 +86,9 @@ const Lms = () => {
           </div>
           //card ends
         ))}
-      </div>
+      </div>):<div className="py-8 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
+                  <p className="text-center text-red-500">Please login to use LMS</p>
+                </div>}
     </div>
   );
 };

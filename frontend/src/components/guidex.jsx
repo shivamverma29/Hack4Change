@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import HashLoader from 'react-spinners/HashLoader';
+import { useSelector } from 'react-redux';
+
 const Guidex = () => {
+  const isLogin = useSelector((state) => state.auth.token);
   const [formData, setFormData] = useState({
     state: '',
     gender: '',
@@ -79,6 +82,7 @@ const Guidex = () => {
             <div>
               <h1 className="text-2xl font-semibold">Guided Entrepreneurship</h1>
             </div>
+            {isLogin?(
             <div className="divide-y divide-gray-200">
               <form onSubmit={handleSubmit}>
                 <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
@@ -161,7 +165,9 @@ const Guidex = () => {
                   </div>
                 </div>
               </form>
-            </div>
+            </div>):(<div className="py-8 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
+                  <p className="text-center text-red-500">Please login to Use GuideX</p>
+                </div>)}
           </div>
         </div>
       </div>
