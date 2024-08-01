@@ -15,6 +15,7 @@ import Login from "./components/login";
 import { ContextProvider } from "./components/context/StepContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Businessplan from "./components/businessplan";
 import Legal from "./components/legal/legal";
 import Service from "./components/legal/service";
 import InputForm from "./components/legal/inputForm";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/dashboard" element={<Visuals />} />
             <Route path="/signup" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/business" element={<Businessplan />} />
             <Route path="/legal" element={<Legal />} />
             <Route path="/service/:id" element={<Service />} />
             <Route path="/form/:id" element={<InputForm />} />
@@ -43,29 +45,7 @@ function App() {
         </BrowserRouter>
         <Footer></Footer>
       </ContextProvider>
-import Businessplan from "./components/businessplan";
-function App() {
-  return (
-    <>
-      <Nav />
-      <Chatbot />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/lms" element={<Lms />} />
-          <Route path="/uploadvideo" element={<VideoUpload />} />
-          <Route path="/guidex" element={<Guidex />} />
-          <Route path="/poster" element={<Poster />} />
-          <Route path="/crowd" element={<Crowd />} />
-          <Route path="/dashboard" element={<Visuals />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/business" element={<Businessplan />} />
-        </Routes>
-      </BrowserRouter>
-      <Footer></Footer>
-    </>
+      </>
   );
 }
-
 export default App;
