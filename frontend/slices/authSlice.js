@@ -1,29 +1,30 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 // const API_URL = 'http://localhost:5000/auth';
-const API_URL = 'https://hack4change.onrender.com/auth';
+// const API_URL = 'https://hack4change.onrender.com/auth';
+const API_URL = "https://hack4-change-one.vercel.app/auth";
 
-export const register = createAsyncThunk('auth/register', async (userData) => {
+export const register = createAsyncThunk("auth/register", async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
   return response.data;
 });
 
-export const login = createAsyncThunk('auth/login', async (userData) => {
+export const login = createAsyncThunk("auth/login", async (userData) => {
   const response = await axios.post(`${API_URL}/login`, userData);
   return response.data;
 });
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
-    token: localStorage.getItem('token') || null,
+    token: localStorage.getItem("token") || null,
     loading: false,
     error: null,
   },
   reducers: {
     logout: (state) => {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
       state.token = null;
     },
   },
@@ -36,7 +37,7 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem("token", action.payload.token);
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -49,7 +50,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem("token", action.payload.token);
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
