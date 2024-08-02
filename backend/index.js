@@ -42,6 +42,10 @@ app.use("/api", require("./routes/lmsRoutes.js"));
 app.use("/gen", require("./routes/posterRoutes.js"));
 app.use("/auth", require("./routes/auth.js"));
 
+app.get("/", (req, res) => {
+  res.send("hi");
+});
+
 // const { exec } = require("child_process");
 
 // app.get("/run-python", (req, res) => {
