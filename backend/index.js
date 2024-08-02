@@ -30,14 +30,7 @@ const path = require("path");
 //   return await fn(req, res);
 // };
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.options("*", cors()); // Allow preflight requests for all routes
 
 // const cors = require('cors');
