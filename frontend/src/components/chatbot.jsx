@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "tailwindcss/tailwind.css";
+import { HfInference } from "@huggingface/inference";
 
 // Web Speech API
 const SpeechRecognition =
@@ -15,6 +16,8 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isListening, setIsListening] = useState(false);
+
+  const inference = new HfInference("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");
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -31,36 +34,27 @@ const Chatbot = () => {
     const newMessages = [...messages, { sender: "user", text: input }];
     setMessages(newMessages);
     setInput("");
-    // Call the Gemini API
+
     try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=AIzaSyB5c7abY4893gjyZtFrT8axWkLgaDbuNr0`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [{ text: input }],
-              },
-            ],
-          }),
-        }
-      );
+      const botResponseChunks = [];
 
-      const data = await response.json();
-      const botResponse =
-        data.candidates?.[0]?.content?.parts?.[0]?.text ||
-        "Sorry, I did not understand that.";
+      for await (const chunk of inference.chatCompletionStream({
+        model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+        messages: [{ role: "user", content: input }],
+        max_tokens: 500,
+      })) {
+        const botMessageChunk = chunk.choices[0]?.delta?.content || "";
+        botResponseChunks.push(botMessageChunk);
 
-      // Add bot message to chat
-      const updatedMessages = [
-        ...newMessages,
-        { sender: "bot", text: botResponse },
-      ];
-      setMessages(updatedMessages);
+        // Update the UI with the streaming response
+        const streamingResponse = botResponseChunks.join("");
+        setMessages([
+          ...newMessages,
+          { sender: "bot", text: streamingResponse },
+        ]);
+      }
+
+      const botResponse = botResponseChunks.join("");
 
       // Convert bot response to speech
       const utterance = new SpeechSynthesisUtterance(botResponse);
@@ -89,7 +83,6 @@ const Chatbot = () => {
       setIsListening(false);
     };
     recognition.onerror = (event) => {
-      // console.error('Speech recognition error:', event.error);
       setIsListening(false);
     };
   };

@@ -37,13 +37,13 @@ const Guidex = () => {
     setLoading(true);
     const genAI = new GoogleGenerativeAI("AIzaSyCLzLgikraSgNptmvZrMsGx9kWkVKbDo90");
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-    const prompt = `Generate a json object on entrepreneurship option on the basis of ${formData.state},${formData.age},${formData.gender} and ${formData.invest} investments.Structure of json "entrepreneurship_options": [
+    const prompt = `Generate a json object which tells about the business like what is the market size,target audience,and where to invest the money efficiently on the basis of ${formData.state},${formData.age},${formData.gender} and ${formData.invest} investments.Structure of json "entrepreneurship_options": [
     {
       "option_name": "Startup Accelerator",
       "description": "A program that provides mentorship, resources, and funding to early-stage startups.",
       "investment_range": {
-        "minimum": 88000,
-        "maximum": 9999999
+        "minimum": RS 88000,
+        "maximum": RS 9999999
       },
       "target_audience": "Founders with a validated idea and a strong team.",
       "benefits": [

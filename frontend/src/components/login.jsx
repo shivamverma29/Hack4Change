@@ -4,8 +4,8 @@ import { login } from '../../slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('test');
+  const [password, setPassword] = useState('test');
   const navigate=useNavigate();
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
