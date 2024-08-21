@@ -1,43 +1,45 @@
 const express = require("express");
 const router2 = express.Router();
-const https = require("https");
 
-router2.post("/generate-poster", (req, res) => {
+router2.post("/generate-poster", async (req, res) => {
+    const fetch = (await import('node-fetch')).default;
+
     const { companyName, postDescription } = req.body;
-  
-    const prompt = `Generate a poster for ${companyName} in english. The poster should attract people by highlighting: ${postDescription}. Create a simple poster.`;
-  
-    const options = {
-      method: "POST",
-      hostname: "open-ai21.p.rapidapi.com",
-      port: null,
-      path: "/texttoimage2",
-      headers: {
-        "x-rapidapi-key": "e46a086c0emsh85c1fc1e5fe752cp1be4f3jsn5c3e2a33f227",
-        "x-rapidapi-host": "open-ai21.p.rapidapi.com",
-        "Content-Type": "application/json",
-      },
-    };
-  
-    const request = https.request(options, (response) => {
-      const chunks = [];
-  
-      response.on("data", (chunk) => {
-        chunks.push(chunk);
-      });
-  
-      response.on("end", () => {
-        const body = Buffer.concat(chunks).toString();
-        res.json(JSON.parse(body));
-      });
-    });
-  
-    request.write(
-      JSON.stringify({
-        text: prompt,
-      })
-    );
-    request.end();
-  });
 
-  module.exports=router2;
+    const prompt = `Generate a social media poster for company:${companyName} description: ${postDescription}`;
+
+    const data = { inputs: prompt };
+
+    // Function to query the Hugging Face model
+    async function query(data) {
+        const response = await fetch(
+            "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev",
+            {
+                headers: {
+                    Authorization: "Bearer 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",
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify(data),
+            }
+        );
+        const result = await response.blob();
+        return result;
+    }
+
+    try {
+        const imageBlob = await query(data);
+        
+        // Convert the blob to a base64 string
+        const base64Image = await imageBlob.arrayBuffer().then(buffer => Buffer.from(buffer).toString('base64'));
+        
+        // Create a data URL for the image
+        const imageUrl = `data:image/jpeg;base64,${base64Image}`;
+
+        res.json({ imageUrl });
+    } catch (error) {
+        res.status(500).json({ error: "Image generation failed" });
+    }
+});
+
+module.exports = router2;
