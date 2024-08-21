@@ -12,6 +12,7 @@ import Crowd from "./components/crowd";
 import Visuals from "./components/VIsuals";
 import Register from "./components/register";
 import Login from "./components/login";
+import {Practice} from "./components/practice";
 import { ContextProvider } from "./components/context/StepContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -44,6 +45,7 @@ function App() {
             <Route path="/service/:id" element={<Service />} />
             <Route path="/form/:id" element={<InputForm />} />
             <Route path="/business" element={<Businessplan />} />
+            <Route path="/practice" element={<Practice />} />
           </Routes>
           <ToastContainer />
         </BrowserRouter>
