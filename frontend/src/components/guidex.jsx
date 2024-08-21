@@ -6,10 +6,9 @@ import { useSelector } from 'react-redux';
 const Guidex = () => {
   const isLogin = useSelector((state) => state.auth.token);
   const [formData, setFormData] = useState({
-    state: '',
-    gender: '',
-    age: '',
-    invest: ''
+    state: 'Rajasthan',
+    businessIdea: 'an educational institute',
+    investment: '1000000'
   });
   const [options, setOptions] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -36,14 +35,13 @@ const Guidex = () => {
     e.preventDefault();
     setLoading(true);
     const genAI = new GoogleGenerativeAI("AIzaSyCLzLgikraSgNptmvZrMsGx9kWkVKbDo90");
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-    const prompt = `Generate a json object which tells about the business like what is the market size,target audience,and where to invest the money efficiently on the basis of ${formData.state},${formData.age},${formData.gender} and ${formData.invest} investments.Structure of json "entrepreneurship_options": [
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const prompt = `Generate a JSON object which tells about the investment options based on the following parameters within my investment range .: State: ${formData.state}, Business Idea: ${formData.businessIdea}, Investment: ${formData.investment}. Structure of JSON: "entrepreneurship_options": [
     {
-      "option_name": "Startup Accelerator",
-      "description": "A program that provides mentorship, resources, and funding to early-stage startups.",
-      "investment_range": {
-        "minimum": RS 88000,
-        "maximum": RS 9999999
+      "option_name": "Location Upgrade",
+      "description": "Upgrading to a more central or high-traffic location to attract more customers": {
+        "minimum": ,
+        "maximum": 
       },
       "target_audience": "Founders with a validated idea and a strong team.",
       "benefits": [
@@ -53,19 +51,19 @@ const Guidex = () => {
         "Workspace",
         "Support services"
       ],
-      "location": "UP",
+      "location": "${formData.state}",
       "website": "https://www.exampleaccelerator.com"
     },`;
     const result = await model.generateContent(prompt);
     const jsonString = JSON.parse(extractJsonString(result.response.text()));
+    console.log(jsonString);
     setOptions(jsonString.entrepreneurship_options);
     setShowPopup(true);
     setLoading(false);
     setFormData({
       state: '',
-      gender: '',
-      age: '',
-      invest: ''
+      businessIdea: '',
+      investment: ''
     });
   };
 
@@ -82,92 +80,77 @@ const Guidex = () => {
             <div>
               <h1 className="text-2xl font-semibold">Guided Entrepreneurship</h1>
             </div>
-            {isLogin?(
-            <div className="divide-y divide-gray-200">
-              <form onSubmit={handleSubmit}>
-                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                  <div className="relative">
-                    <input
-                      autoComplete="off"
-                      id="state"
-                      name="state"
-                      type="text"
-                      value={formData.state}
-                      onChange={handleChange}
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
-                      placeholder="State"
-                    />
-                    <label
-                      htmlFor="state"
-                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                    >
-                      State
-                    </label>
+            {isLogin ? (
+              <div className="divide-y divide-gray-200">
+                <form onSubmit={handleSubmit}>
+                  <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                    <div className="relative">
+                      <input
+                        autoComplete="off"
+                        id="state"
+                        name="state"
+                        type="text"
+                        value={formData.state}
+                        onChange={handleChange}
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                        placeholder="State"
+                      />
+                      <label
+                        htmlFor="state"
+                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      >
+                        State
+                      </label>
+                    </div>
+                    <div className="relative">
+                      <input
+                        autoComplete="off"
+                        id="businessIdea"
+                        name="businessIdea"
+                        type="text"
+                        value={formData.businessIdea}
+                        onChange={handleChange}
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                        placeholder="Business Idea"
+                      />
+                      <label
+                        htmlFor="businessIdea"
+                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      >
+                        Business Idea
+                      </label>
+                    </div>
+                    <div className="relative">
+                      <input
+                        autoComplete="off"
+                        id="investment"
+                        name="investment"
+                        type="text"
+                        value={formData.investment}
+                        onChange={handleChange}
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                        placeholder="Investment"
+                      />
+                      <label
+                        htmlFor="investment"
+                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      >
+                        Investment
+                      </label>
+                    </div>
+                    <div className="relative">
+                      <button className="bg-blue-500 text-white rounded-md px-2 py-1 flex justify-center items-center mx-auto">
+                        Submit
+                      </button>
+                    </div>
                   </div>
-                  <div className="relative">
-                    <input
-                      autoComplete="off"
-                      id="gender"
-                      name="gender"
-                      type="text"
-                      value={formData.gender}
-                      onChange={handleChange}
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
-                      placeholder="Gender"
-                    />
-                    <label
-                      htmlFor="gender"
-                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                    >
-                      Gender
-                    </label>
-                  </div>
-                  <div className="relative">
-                    <input
-                      autoComplete="off"
-                      id="age"
-                      name="age"
-                      type="text"
-                      value={formData.age}
-                      onChange={handleChange}
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
-                      placeholder="Age"
-                    />
-                    <label
-                      htmlFor="age"
-                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                    >
-                      Age
-                    </label>
-                  </div>
-                  <div className="relative">
-                    <input
-                      autoComplete="off"
-                      id="invest"
-                      name="invest"
-                      type="text"
-                      value={formData.invest}
-                      onChange={handleChange}
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
-                      placeholder="Initial Investment"
-                    />
-                    <label
-                      htmlFor="invest"
-                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                    >
-                      Initial Investment
-                    </label>
-                  </div>
-                  <div className="relative">
-                    <button className="bg-blue-500 text-white rounded-md px-2 py-1 flex justify-center items-center mx-auto">
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>):(<div className="py-8 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
-                  <p className="text-center text-red-500">Please login to Use GuideX</p>
-                </div>)}
+                </form>
+              </div>
+            ) : (
+              <div className="py-8 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
+                <p className="text-center text-red-500">Please login to Use GuideX</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -178,15 +161,15 @@ const Guidex = () => {
       )}
       {showPopup && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
-          <div className="relative bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-8 max-w-md mx-auto z-50 max-h-[90vh] overflow-y-auto" style={{minWidth:"806px"}}>
-            <h2 className="text-2xl font-bold mb-4 text-black">Entrepreneurship Options</h2>
+          <div className="relative bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-8 max-w-md mx-auto z-50 max-h-[90vh] overflow-y-auto" style={{ minWidth: "806px" }}>
+            <h2 className="text-2xl font-bold mb-4 text-black">Investment Options</h2>
             <button onClick={handleClosePopup} className="absolute top-4 right-4 text-black">X</button>
             <div className="space-y-4">
               {options.map((option, index) => (
                 <div key={index} className="bg-white bg-opacity-25 p-4 rounded-lg text-white">
                   <h3 className="text-xl font-semibold text-black"><strong>{option.option_name}</strong></h3>
                   <p>{option.description}</p>
-                  <p><strong className='text-black'>Investment Range:</strong> ${option.investment_range.minimum} - ${option.investment_range.maximum}</p>
+                  <p><strong className='text-black'>Investment Range:</strong> Rs.{option.minimum} - Rs.{option.maximum}</p>
                   <p><strong className='text-black'>Target Audience:</strong> {option.target_audience}</p>
                   <ul className="list-disc list-inside">
                     <strong className='text-black'>Benefits:</strong>
@@ -194,7 +177,7 @@ const Guidex = () => {
                       <li key={i}>{benefit}</li>
                     ))}
                   </ul>
-                  <a href={option.website} target="_blank" rel="noopener noreferrer" className="text-blue-300">Learn More</a>
+                  
                 </div>
               ))}
             </div>
