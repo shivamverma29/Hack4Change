@@ -6,17 +6,17 @@ router2.post("/generate-poster", async (req, res) => {
 
     const { companyName, postDescription } = req.body;
 
-    const prompt = `Generate a social media poster for company:${companyName} description: ${postDescription}`;
+    const prompt = `Generate a social media poster for my company with heading:${companyName} with: ${postDescription} and do not add any text other than mentioned in this`;
 
     const data = { inputs: prompt };
 
     // Function to query the Hugging Face model
     async function query(data) {
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev",
+            "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-3-medium-diffusers",
             {
                 headers: {
-                    Authorization: "Bearer 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",
+                    Authorization: "Bearer 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",
                     "Content-Type": "application/json",
                 },
                 method: "POST",

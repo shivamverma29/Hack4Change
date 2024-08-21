@@ -15,17 +15,12 @@ function Poster() {
   const generatePoster = async () => {
     setLoader(true);
     const response = await fetch("http://localhost:5000/gen/generate-poster", {
-    // const response = await fetch("https://hack4change.onrender.com/gen/generate-poster", {
-    // const response = await fetch(
-    //   "https://hack4-change-one.vercel.app/gen/generate-poster",
-    //   {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ companyName, postDescription }),
-      }
-    );
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ companyName, postDescription }),
+    });
     const data = await response.json();
     setPoster(data.imageUrl);
     setLoader(false);
@@ -68,10 +63,10 @@ function Poster() {
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-      <div className="relative py-3 sm:max-w-xl sm:mx-auto" style={{ width: "700px" }}>
+      <div className="relative py-3 sm:max-w-6xl sm:mx-auto" style={{ width: "100%" }}>
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-          <div className="max-w-md mx-auto">
+          <div className="max-w-4xl mx-auto">
             <div>
               <h1 className="text-2xl font-semibold">Poster Generator</h1>
             </div>
@@ -144,9 +139,10 @@ function Poster() {
               <HashLoader color="white" />
             </div>
           )}
-          <div className="w-full flex justify-center">
-            {step === 3 && poster && (
-              <div className="mt-6 text-center">
+          {step === 3 && poster && (
+            <div className="flex mt-6 space-x-8">
+              {/* Poster Section */}
+              <div className="w-1/2 text-center">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">
                   Generated Poster
                 </h2>
@@ -154,6 +150,7 @@ function Poster() {
                   src={poster}
                   alt="Generated Poster"
                   className="border rounded-lg shadow-md mb-4"
+                  style={{ width: "100%", height: "auto" }} // Ensures poster stays large
                 />
                 <a
                   className="bg-green-500 text-white rounded-md px-4 py-2"
@@ -163,26 +160,26 @@ function Poster() {
                   Download Poster
                 </a>
               </div>
-            )}
-          </div>
-          {step === 3 && poster && captions.length > 0 && (
-            <>
-              <h1 className="flex justify-center text-center mt-7 text-2xl font-bold">
-                Suggested Captions
-              </h1>
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {captions.map((caption, index) => (
-                  <div
-                    key={index}
-                    className="p-6 bg-white bg-opacity-60 backdrop-blur-md rounded-lg shadow-lg border border-gray-200"
-                  >
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      {caption}
-                    </h3>
+
+              {/* Captions Section */}
+              {captions.length > 0 && (
+                <div className="w-1/2">
+                  <h1 className="text-2xl font-bold mb-4">Suggested Captions</h1>
+                  <div className="grid grid-cols-2 lg:grid-cols-2 gap-2">
+                  {captions.slice(0, 6).map((caption, index) => (
+                      <div
+                        key={index}
+                        className="p-4 bg-white bg-opacity-60 backdrop-blur-md rounded-lg shadow-lg border border-gray-200 text-center"
+                      >
+                        <h3 className="text-lg font-semibold text-gray-800">
+                          {caption}
+                        </h3>
+                      </div>
+                        ))}
                   </div>
-                ))}
-              </div>
-            </>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>
