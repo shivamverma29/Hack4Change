@@ -17,7 +17,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="container flex items-center justify-around pt-4 pb-3 sticky top-0 z-50">
+    <nav className="container flex items-center justify-around pt-4 -mt-8 pb-3 sticky top-0 z-50">
       <div className="bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur p-2 cursor-pointer rounded-full transition duration-300">
         <a href="/">
           <strong className="text-xl">
