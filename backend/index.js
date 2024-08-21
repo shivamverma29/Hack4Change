@@ -74,8 +74,30 @@ app.get("/", (req, res) => {
 //   });
 // });
 
+const apiKey = "YTFjZjM0YWQ3YTc1NDk3Mzg4YzkyZmZhYTdjNDU5MTgtMTcyNDI3MzM0MA==";
+
+app.post("/generate-video", async (req, res) => {
+  console.log(req);
+
+  try {
+    const response = await axios.post(
+      "https://api.heygen.com/v1/video/generate",
+      req.body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(5000, async () => {
-  console.log("connected to port" + 4000);
+  console.log("connected to port" + 5000);
   try {
     await mongoose.connect(
       "mongodb+srv://sverma4be21:7vh4djSQN9HoRhus@cluster0.tnnmrss.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"

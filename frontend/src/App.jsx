@@ -20,6 +20,7 @@ import Legal from "./components/legal/legal";
 import Service from "./components/legal/service";
 import InputForm from "./components/legal/inputForm";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import Pitch from "./components/pitch/pitch";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/service/:id" element={<Service />} />
             <Route path="/form/:id" element={<InputForm />} />
             <Route path="/business" element={<Businessplan />} />
+            <Route path="/pitch" element={<Pitch />} />
           </Routes>
           <ToastContainer />
         </BrowserRouter>
