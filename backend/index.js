@@ -50,6 +50,7 @@ app.use(express.json());
 app.use("/api", require("./routes/lmsRoutes.js"));
 app.use("/gen", require("./routes/posterRoutes.js"));
 app.use("/auth", require("./routes/auth.js"));
+app.use("/questions", require("./routes/questionRoutes.js"));
 
 app.get("/", (req, res) => {
   res.send("hi");
