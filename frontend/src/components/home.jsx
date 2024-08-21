@@ -6,7 +6,15 @@ import aditya from "../image/aditya.jpg";
 import akriti from "../image/akriti.jpg";
 import shivam from "../image/shivam.jpg";
 import akshita from "../image/akshita.jpeg";
+import {useTypewriter, Cursor} from 'react-simple-typewriter';
+
 export default function Home() {
+  const[typeEffect]=useTypewriter({
+    words:['Entrepreneur','Business Owner','Innovator'],
+    loop:{},
+    typeSpeed:100,
+    deleteSpeed:40
+  })
   return (
     <>
       <main>
@@ -18,7 +26,7 @@ export default function Home() {
           }}
         >
           <div
-            className="absolute top-0 w-full h-full bg-center bg-cover"
+            className="absolute top-0 w-full h-full bg-center bg-cover "
             style={{
               backgroundImage:
                 "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
@@ -29,29 +37,26 @@ export default function Home() {
               className="w-full h-full absolute opacity-75 bg-black"
             ></span>
           </div>
-          <div className="container relative mx-auto">
-            <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-                <div className="pr-12">
-                  <h1 className="text-white font-semibold text-5xl">
+            <div className="container relative mx-auto">
+              <div className="items-center flex flex-wrap">
+                <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+                  <div className="pr-12">
+                      <h1 className="text-white font-semibold text-5xl ">
                     Inspiring Growth,
-                    <br /> One <b className="text-yellow-500">
-                      Entrepreneur
-                    </b>{" "}
-                    at a Time
+                    <br /> One <span style={{fontWeight:'bold', color:'yellow'}}>{typeEffect}</span> at a Time
                   </h1>
-                  <p className="mt-4 text-gray-300">
-                    Our platform nurtures micro and nano entrepreneurs, offering
-                    personalized opportunities and heartfelt support. Unlock
-                    your potential with tools for promotion, market insights,
-                    and secure crowdfunding, all within a caring, collaborative
-                    community.
-                  </p>
+                    <p className="mt-4 text-gray-300">
+                      Our platform nurtures micro and nano entrepreneurs, offering
+                      personalized opportunities and heartfelt support. Unlock
+                      your potential with tools for promotion, market insights,
+                      and secure crowdfunding, all within a caring, collaborative
+                      community.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div
+            <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
             style={{ height: "70px" }}
           >
@@ -76,7 +81,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap">
               <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg card-hover float">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                       <i className="fas fa-share-alt"></i>
@@ -90,11 +95,12 @@ export default function Home() {
                       your unique story to elevate your business presence.
                     </p>
                   </div>
+                  
                 </div>
               </div>
 
               <div className="w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg card-hover float">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                       <i className="fas fa-graduation-cap"></i>
@@ -114,7 +120,7 @@ export default function Home() {
               </div>
 
               <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg  card-hover float">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
                       <i className="fas fa-rocket"></i>
@@ -135,7 +141,7 @@ export default function Home() {
 
             <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
-                <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
+                <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100 float">
                   <i className="fas fa-people-carry text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-bold leading-normal text-black">
@@ -224,7 +230,7 @@ export default function Home() {
               </div>
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4 mb-20">
                 <div className="md:pr-12">
-                  <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-300">
+                  <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-300 float">
                     <i className="fas fa-chart-bar text-xl"></i>
                   </div>
                   <h3 className="text-3xl font-bold text-black">
@@ -240,7 +246,7 @@ export default function Home() {
                     <li className="py-2">
                       <div className="flex items-center">
                         <div>
-                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3">
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3 float">
                             <i className="fas fa-chart-pie"></i>
                           </span>
                         </div>
@@ -254,7 +260,7 @@ export default function Home() {
                     <li className="py-2">
                       <div className="flex items-center">
                         <div>
-                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3">
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3 float">
                             <i className="fas fa-chart-area"></i>
                           </span>
                         </div>
@@ -268,7 +274,7 @@ export default function Home() {
                     <li className="py-2">
                       <div className="flex items-center">
                         <div>
-                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3">
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3 float">
                             <i className="fas fa-chart-line"></i>
                           </span>
                         </div>
@@ -289,7 +295,7 @@ export default function Home() {
             <div className="items-center flex flex-wrap">
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
                 <div className="md:pr-12">
-                  <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-300">
+                  <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-300 float">
                     <i className="fas fa-donate text-xl"></i>
                   </div>
                   <h3 className="text-3xl font-bold text-black ">
