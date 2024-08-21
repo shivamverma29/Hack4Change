@@ -21,6 +21,7 @@ import Service from "./components/legal/service";
 import InputForm from "./components/legal/inputForm";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 
+
 function App() {
   return (
     <>
