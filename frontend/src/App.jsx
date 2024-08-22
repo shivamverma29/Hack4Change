@@ -23,6 +23,7 @@ import InputForm from "./components/legal/inputForm";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import Analyzex from "./components/analyzex";
 
+
 function App() {
   return (
     <>
