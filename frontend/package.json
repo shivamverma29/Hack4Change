@@ -37,7 +37,8 @@
     "regenerator-runtime": "^0.14.1",
     "styled-components": "^6.1.12",
     "typescript": "^5.5.4",
-    "webcam": "^3.2.1"
+    "webcam": "^3.2.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
