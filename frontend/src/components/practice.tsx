@@ -104,6 +104,7 @@ export const Practice = () => {
     setParsedQuestions(parsedres);
     start(); // Start listening after setting the parsed questions
   };
+    
 
   const handleSubmit = async () => {
     setShowFeed(true);
@@ -120,6 +121,10 @@ export const Practice = () => {
     const response = await model.generateContent(prompt);
 
     let feedback = response.response.text();
+    feedback = feedback.replace(/\*\*/g, ""); // Remove asterisks
+    feedback = feedback.replace(/(\d\.)/g, "\n$1"); 
+
+    
     setFeedBack(feedback);
     setIsLoading(false);
 
@@ -386,6 +391,7 @@ const DIV = styled.div`
     padding: 20px;
     background-color: #0a2640;
     display: flex;
+    
     flex-direction: column;
     align-items: flex-end;
   }
@@ -414,6 +420,8 @@ const DIV = styled.div`
     border: solid lightgray 1px;
     background-color: white;
     text-align: left;
+    white-space: normal;
+    word-wrap: break-word;
     padding: 0px 30px;
     border-radius: 5px;
   }
