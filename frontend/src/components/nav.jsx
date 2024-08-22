@@ -83,6 +83,11 @@ const Nav = () => {
             PracticeX
           </li>
         </a>
+        <a href="/analyzex">
+          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
+            AnalyzeX
+          </li>
+        </a>
       </ul>
       <div className="flex items-center gap-4">
         <div style={{ transform: "none", transformOrigin: "100% 50% 0px" }}>

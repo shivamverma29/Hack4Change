@@ -21,6 +21,7 @@ import Legal from "./components/legal/legal";
 import Service from "./components/legal/service";
 import InputForm from "./components/legal/inputForm";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import Analyzex from "./components/analyzex";
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/form/:id" element={<InputForm />} />
             <Route path="/business" element={<Businessplan />} />
             <Route path="/practice" element={<Practice />} />
+            <Route path="/analyzex" element={<Analyzex />} />
           </Routes>
           <ToastContainer />
         </BrowserRouter>

@@ -4,6 +4,8 @@ const cloudinary = require("cloudinary").v2;
 const Lms = require("../models/lmsModel");
 const fs = require("fs");
 const dotenv = require("dotenv");
+const cheerio = require('cheerio');
+const axios=require('axios');
 dotenv.config();
 
 cloudinary.config({
@@ -84,5 +86,34 @@ const removeTmp = (path) => {
     if (err) throw err;
   });
 };
+
+const puppeteer = require('puppeteer');
+
+router2.get('/scrapeVideos', async (req, res) => {
+  const searchQuery = req.query.query;
+  const searchUrl = `https://www.youtube.com/results?search_query=course for business ${encodeURIComponent(searchQuery)}`;
+
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(searchUrl);
+    
+    const videos = await page.evaluate(() => {
+      return Array.from(document.querySelectorAll('a#video-title')).map(video => ({
+        title: video.textContent.trim(),
+        url: `https://www.youtube.com${video.getAttribute('href')}`,
+        thumbnailUrl: video.closest('ytd-video-renderer').querySelector('img').src,
+      }));
+    });
+    console.log(videos)
+    await browser.close();
+    res.json(videos);
+  } catch (error) {
+    console.error('Error scraping videos:', error);
+    res.status(500).json({ error: 'Error scraping videos' });
+  }
+});
+
+
 
 module.exports = router2;
