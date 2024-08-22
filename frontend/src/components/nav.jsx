@@ -58,11 +58,6 @@ const Nav = () => {
             LMS
           </li>
         </a>
-        <a href="/crowd">
-          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            CrowdFunding
-          </li>
-        </a>
         <a href="/dashboard">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             AnalyticsX
@@ -73,14 +68,14 @@ const Nav = () => {
             BusinessPlan
           </li>
         </a>
+        <a href="/pitch">
+          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
+            PitchX
+          </li>
+        </a>
         <a href="/legal">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             LegalX
-          </li>
-        </a>
-        <a href="/practice">
-          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            PracticeX
           </li>
         </a>
       </ul>

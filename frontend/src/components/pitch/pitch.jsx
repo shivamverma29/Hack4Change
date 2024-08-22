@@ -1,6 +1,7 @@
 // src/Chat.js
-import React, { useState } from "react";
 import { HfInference } from "@huggingface/inference";
+import React, { useState, useEffect, useRef } from "react";
+import Webcam from "react-webcam";
 
 const inference = new HfInference("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"); // Replace with your actual Hugging Face API key
 
@@ -396,6 +397,66 @@ const Pitch = () => {
   const [llmExchanges, setLlmExchanges] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [recognition, setRecognition] = useState(null);
+  const [isListening, setIsListening] = useState(false);
+  const [videoStream, setVideoStream] = useState(null);
+  const [responseAnalyses, setResponseAnalyses] = useState([]); // State to store response analyses
+  const inputRef = useRef(null);
+  const sendButtonRef = useRef(null);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (!("webkitSpeechRecognition" in window)) {
+      alert("Speech Recognition is not supported in this browser.");
+      return;
+    }
+
+    const rec = new webkitSpeechRecognition();
+    rec.continuous = false;
+    rec.interimResults = false;
+    rec.lang = "en-US";
+    rec.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
+    };
+    rec.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      setIsListening(false);
+    };
+    rec.onend = () => {
+      setIsListening(false);
+    };
+
+    setRecognition(rec);
+  }, []);
+
+  useEffect(() => {
+    const startWebcam = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+        setVideoStream(stream);
+      } catch (err) {
+        console.error("Error accessing webcam:", err);
+      }
+    };
+
+    startWebcam();
+
+    // Cleanup function to stop the video stream
+    return () => {
+      if (videoStream) {
+        videoStream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current && videoStream) {
+      videoRef.current.srcObject = videoStream;
+    }
+  }, [videoStream]);
 
   const analyzePitch = async (conversation) => {
     setLoading(true);
@@ -407,7 +468,7 @@ const Pitch = () => {
           {
             role: "user",
             content:
-              " Please analyze the following conversation between a user pitching their business and an investor. Provide a report in JSON format with the following keys: 'pitchQuality', 'businessKnowledge', 'strengths', 'weaknesses', and 'overallImpression'. Each key should have a short text value summarizing the analysis. GIVE ONLY IN OBJECT FORMAT. Here is the conversation:" +
+              "Please analyze the following conversation between a user pitching their business and an investor. Provide a report in JSON format with the following keys: 'pitchQuality', 'businessKnowledge', 'strengths', 'weaknesses', and 'overallImpression'. Each key should have a short text value summarizing the analysis. GIVE ONLY IN OBJECT FORMAT. Here is the conversation:" +
               JSON.stringify(conversation),
           },
         ],
@@ -420,14 +481,21 @@ const Pitch = () => {
         analysisText += content;
       }
 
-      // Attempt to parse the response as JSON
       try {
         const analysisObject = JSON.parse(analysisText);
         console.log(analysisObject);
 
         setAnalysis(analysisObject);
+
+        // Update the responseAnalyses state
+        setResponseAnalyses((prevAnalyses) => [
+          ...prevAnalyses,
+          {
+            userMessage: conversation[conversation.length - 1].text,
+            analysis: analysisObject,
+          },
+        ]);
       } catch (jsonError) {
-        // If JSON parsing fails, set an error message or handle the text response differently
         console.error("JSON Parsing Error:", jsonError);
         setError("The response was not in the expected format.");
       }
@@ -454,11 +522,11 @@ const Pitch = () => {
           {
             role: "user",
             content:
-              "You are a seasoned angel investor. KEEP YOUR RESPONSES SHORT AND ONLY ASK 1-2 QUESTIONS IN A SINGLE RESPONSE. Start your response with responding to the user's input. If you think there is any statement in the user's input that is interesting or can effect their startup ask about that. Don't thank the user every time. and behave like a human. If it's your first response then ask about the statup. Here's the user's input: " +
+              "You are a seasoned angel investor. YOUR RESPONSE SHOULD NOT BE OF MORE THAN 50 WORDS, KEEP YOUR RESPONSES SHORT AND ONLY ASK 1-2 QUESTIONS IN A SINGLE RESPONSE. Start your response with responding to the user's input. If you think there is any statement in the user's input that is interesting or can affect their startup, ask about that. Don't thank the user every time. And behave like a human. If it's your first response, then ask about the startup. Here's the user's input: " +
               input +
-              ". IF THE USER ENTERS SOMETHING GIBBERISH HUST RESTURN 'GIVE A VALID ANSWER'. Respond as if you were evaluating the user in a real investor setting. Begin by asking specific questions to understand the business, its operations, market, and potential. Ask only one question in one response. Use the following Shark Tank script as a reference for the tone, flow, and type of questions to ask, but avoid using names." +
+              ". IF THE USER ENTERS SOMETHING GIBBERISH JUST RETURN 'GIVE A VALID ANSWER'. Respond as if you were evaluating the user in a real investor setting. Begin by asking specific questions to understand the business, its operations, market, and potential. Ask only one question in one response. Use the following Shark Tank script as a reference for the tone, flow, and type of questions to ask, but avoid using names." +
               shark +
-              " Do not use any name. Maintain a focus on understanding the business model, revenue streams, and growth potential entered by the user after asking. As the conversation progresses, inquire about the company's valuation, challenge it if necessary according to the messages provided below. The following is your past conversation with the user, use it as reference to continue the conversation - " +
+              " Do not use any name. Maintain a focus on understanding the business model, revenue streams, and growth potential entered by the user after asking. As the conversation progresses, inquire about the company's valuation, challenge it if necessary according to the messages provided below. The following is your past conversation with the user, use it as a reference to continue the conversation - " +
               messages +
               ". Limit each side to a maximum of 11 exchanges i.e. the size of the messages object should be 11, so try to finish up the pitching in that many rounds.",
           },
@@ -484,14 +552,15 @@ const Pitch = () => {
 
       setMessages(updatedMessages);
 
-      // Update exchange counts
       const newUserExchanges = userExchanges + 1;
       const newLlmExchanges = llmExchanges + 1;
       setUserExchanges(newUserExchanges);
       setLlmExchanges(newLlmExchanges);
 
-      // Analyze the conversation after 3 exchanges from each side
       if (newUserExchanges >= 5 && newLlmExchanges >= 6) {
+        analyzePitch(updatedMessages);
+      } else {
+        // Analyze pitch after every user response
         analyzePitch(updatedMessages);
       }
     } catch (error) {
@@ -508,87 +577,164 @@ const Pitch = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // Prevents newline character in input field
+      e.preventDefault();
       handleSend();
     }
   };
 
+  const startListening = () => {
+    if (recognition) {
+      recognition.start();
+      setIsListening(true);
+    }
+  };
+
+  const stopListening = () => {
+    if (recognition) {
+      recognition.stop();
+      setIsListening(false);
+    }
+  };
+
   return (
-    <div className="p-6 max-w-3xl mx-auto mb-12 bg-white shadow-lg rounded-lg border border-gray-200">
-      <div className="border border-gray-300 p-6 rounded-lg bg-gray-100 min-h-[300px] overflow-y-auto">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`mb-4 flex ${
-              message.sender === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
-            <div
-              className={`p-4 rounded-lg ${
-                message.sender === "user"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-700 text-white"
-              } max-w-md`}
-            >
-              <strong
-                className={`block text-sm font-semibold ${
-                  message.sender === "user" ? "text-white" : "text-gray-200"
+    <div className="p-6 max-w-6xl mx-auto mt-10 mb-12 bg-white shadow-lg rounded-lg border border-gray-200 flex h-screen">
+      {/* Main Container */}
+      <div className="flex-1 flex flex-col">
+        {/* Webcam */}
+        <div className="relative w-full h-80 bg-gray-300 mb-4">
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            ref={videoRef}
+          />
+        </div>
+        {/* Chat */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="border border-gray-300 p-6 rounded-lg bg-gray-100 min-h-[300px]">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`mb-4 flex ${
+                  message.sender === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                {message.sender === "user" ? "You" : "Investor"}
-              </strong>
-              <p className="mt-1">{message.text}</p>
-            </div>
-          </div>
-        ))}
-        {isLoading && <div className="text-gray-500 mt-4">Loading...</div>}
-      </div>
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Type your message..."
-        className="w-full p-4 mt-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-      />
-      <button
-        onClick={handleSend}
-        className="w-full p-3 mt-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Send
-      </button>
-      {analysis && (
-        <div className="analysis-container bg-white shadow-lg rounded-lg p-6 max-w-xl mx-auto mt-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
-            Pitch Analysis Report
-          </h2>
-          <div className="analysis-section mb-4">
-            <h3 className="text-xl font-semibold text-gray-700">
-              Pitch Quality:
-            </h3>
-            <p className="text-gray-600">{analysis.pitchQuality}</p>
-          </div>
-          <div className="analysis-section mb-4">
-            <h3 className="text-xl font-semibold text-gray-700">
-              Knowledge of Business Numbers:
-            </h3>
-            <p className="text-gray-600">{analysis.businessKnowledge}</p>
-          </div>
-          <div className="analysis-section mb-4">
-            <h3 className="text-xl font-semibold text-gray-700">Strengths:</h3>
-            <p className="text-gray-600">{analysis.strengths}</p>
-          </div>
-          <div className="analysis-section mb-4">
-            <h3 className="text-xl font-semibold text-gray-700">Weaknesses:</h3>
-            <p className="text-gray-600">{analysis.weaknesses}</p>
-          </div>
-          <div className="analysis-section">
-            <h3 className="text-xl font-semibold text-gray-700">
-              Overall Impression:
-            </h3>
-            <p className="text-gray-600">{analysis.overallImpression}</p>
+                <div
+                  className={`p-4 rounded-lg ${
+                    message.sender === "user"
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-700 text-white"
+                  } max-w-md`}
+                >
+                  <strong
+                    className={`block text-sm font-semibold ${
+                      message.sender === "user" ? "text-white" : "text-gray-200"
+                    }`}
+                  >
+                    {message.sender === "user" ? "You" : "Investor"}
+                  </strong>
+                  <p className="mt-1">{message.text}</p>
+                </div>
+              </div>
+            ))}
+            {isLoading && <div className="text-gray-500 mt-4">Loading...</div>}
           </div>
         </div>
-      )}
+        <div className="sticky bottom-0 bg-white border-t border-gray-300 p-4">
+          <div className="flex items-center">
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Type your message..."
+              className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              ref={inputRef}
+            />
+            <button
+              onClick={handleSend}
+              className="ml-4 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              ref={sendButtonRef}
+            >
+              Send
+            </button>
+          </div>
+          <div className="mt-2 flex justify-end">
+            <button
+              onClick={isListening ? stopListening : startListening}
+              className="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              {isListening ? "Stop Listening" : "Start Listening"}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Analysis Box */}
+      <div className="w-96 bg-gray-100 p-4 border-l border-gray-300 overflow-y-auto">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">
+          Response Analysis
+        </h2>
+        {analysis && (
+          <div className="analysis-container bg-white shadow-lg rounded-lg p-6 max-w-xs mx-auto mt-8 border border-gray-200">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
+              Pitch Analysis Report
+            </h2>
+
+            <div className="analysis-section mb-4">
+              <h3 className="text-xl font-semibold text-gray-700">
+                Pitch Quality:
+              </h3>
+              <p className="text-gray-600">{analysis.pitchQuality}</p>
+            </div>
+
+            <div className="analysis-section mb-4">
+              <h3 className="text-xl font-semibold text-gray-700">
+                Business Knowledge:
+              </h3>
+              <p className="text-gray-600">{analysis.businessKnowledge}</p>
+            </div>
+
+            <div className="analysis-section mb-4">
+              <h3 className="text-xl font-semibold text-gray-700">
+                Strengths:
+              </h3>
+              {Array.isArray(analysis.strengths) &&
+              analysis.strengths.length > 0 ? (
+                <ul className="list-disc ml-5 text-gray-600">
+                  {analysis.strengths.map((strength, index) => (
+                    <li key={index}>{strength}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-600">No strengths listed</p>
+              )}
+            </div>
+
+            <div className="analysis-section mb-4">
+              <h3 className="text-xl font-semibold text-gray-700">
+                Weaknesses:
+              </h3>
+              {Array.isArray(analysis.weaknesses) &&
+              analysis.weaknesses.length > 0 ? (
+                <ul className="list-disc ml-5 text-gray-600">
+                  {analysis.weaknesses.map((weakness, index) => (
+                    <li key={index}>{weakness}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-600">No weaknesses listed</p>
+              )}
+            </div>
+
+            <div className="analysis-section">
+              <h3 className="text-xl font-semibold text-gray-700">
+                Overall Impression:
+              </h3>
+              <p className="text-gray-600">{analysis.overallImpression}</p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
