@@ -23,12 +23,16 @@ const Analyzex = () => {
 
   const geminiFetch = async ({ inputs, max_tokens = 500 }) => {
     try {
-        const genAI = new GoogleGenerativeAI("AIzaSyCTNzf1grV73snVGpnkg4zt4W8kW4v8GCE");
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
-    const prompt = inputs
-  
+      const genAI = new GoogleGenerativeAI(
+        "AIzaSyCTNzf1grV73snVGpnkg4zt4W8kW4v8GCE"
+      );
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash-latest",
+      });
+      const prompt = inputs;
+
       const response = await model.generateContent(prompt);
-        console.log(response.response.text());
+      console.log(response.response.text());
       // Assuming the response contains a list of text choices
       return response.response.text();
     } catch (error) {
@@ -36,12 +40,9 @@ const Analyzex = () => {
       throw new Error("Failed to fetch data from Gemini API");
     }
   };
-  
-      // Assuming the response data is in the format { choices: [...] }
 
-  
+  // Assuming the response data is in the format { choices: [...] }
 
-  
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -72,7 +73,6 @@ const Analyzex = () => {
         inputs,
         max_tokens: 500,
       });
-
 
       // Attempt to clean and parse the response
       try {

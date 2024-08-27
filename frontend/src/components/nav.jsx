@@ -26,23 +26,23 @@ const Nav = () => {
         </a>
       </div>
       <ul
-        className={`lg:flex items-center gap-1 rounded-full px-4 ml-[130px] bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900 ${
+        className={`lg:flex items-center gap-1 rounded-full px-4 ml-[110px] bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900 ${
           isMenuOpen
             ? "flex flex-col lg:flex-row absolute top-16 left-0 w-full lg:w-auto bg-white shadow-lg lg:shadow-none"
             : "hidden lg:flex"
         }`}
         style={{ transform: "none", transformOrigin: "50% 50% 0px" }}
       >
-        <a href="/">
+        {/* <a href="/">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             Home
           </li>
-        </a>
-        <a href="/guidex">
+        </a> */}
+        {/* <a href="/guidex">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             GuideX
           </li>
-        </a>
+        </a> */}
         <a href="/poster">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             AI Poster
@@ -58,29 +58,9 @@ const Nav = () => {
             LMS
           </li>
         </a>
-        <a href="/crowd">
-          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            CrowdFunding
-          </li>
-        </a>
         <a href="/dashboard">
           <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             AnalyticsX
-          </li>
-        </a>
-        <a href="/business">
-          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            BusinessPlan
-          </li>
-        </a>
-        <a href="/legal">
-          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            LegalX
-          </li>
-        </a>
-        <a href="/practice">
-          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            PracticeX
           </li>
         </a>
         <a href="/analyzex">
@@ -88,6 +68,21 @@ const Nav = () => {
             AnalyzeX
           </li>
         </a>
+        <a href="/business">
+          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
+            BusinessPlan
+          </li>
+        </a>
+        <a href="/pitch">
+          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
+            PitchX
+          </li>
+        </a>
+        {/* <a href="/legal">
+          <li className="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
+            LegalX
+          </li>
+        </a> */}
       </ul>
       <div className="flex items-center gap-4">
         <div style={{ transform: "none", transformOrigin: "100% 50% 0px" }}>
