@@ -12,7 +12,7 @@ import Crowd from "./components/crowd";
 import Visuals from "./components/VIsuals";
 import Register from "./components/register";
 import Login from "./components/login";
-import { Practice } from "./components/practice";
+// import { Practice } from "./components/practice";
 import { ContextProvider } from "./components/context/StepContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +21,7 @@ import Legal from "./components/legal/legal";
 import Service from "./components/legal/service";
 import InputForm from "./components/legal/inputForm";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import Analyzex from "./components/analyzex";
 import Pitch from "./components/pitch/pitch";
 
 function App() {
@@ -47,7 +48,8 @@ function App() {
             <Route path="/form/:id" element={<InputForm />} />
             <Route path="/business" element={<Businessplan />} />
             <Route path="/pitch" element={<Pitch />} />
-            <Route path="/practice" element={<Practice />} />
+            {/* <Route path="/practice" element={<Practice />} /> */}
+            <Route path="/analyzex" element={<Analyzex />} />
           </Routes>
           <ToastContainer />
         </BrowserRouter>

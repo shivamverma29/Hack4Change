@@ -6,7 +6,7 @@ router2.post("/generate-poster", async (req, res) => {
 
     const { companyName, postDescription } = req.body;
 
-    const prompt = `Generate a social media poster for my company with heading:${companyName} with: ${postDescription} and do not add any text other than mentioned in this`;
+    const prompt = `Generate a social media poster for my company with heading:${companyName} with: ${postDescription}`;
 
     const data = { inputs: prompt };
 
